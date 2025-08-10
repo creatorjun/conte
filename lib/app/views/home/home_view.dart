@@ -1,11 +1,8 @@
-// lib/app/views/home/home_view.dart
-
+import 'package:conte/app/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// [수정] 메인 패키지 파일만 import 합니다.
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
-// [수정] 올바른 컨트롤러 경로로 수정합니다.
-import 'package:conte/app/controllers/home_controller.dart';
+import 'package:conte/app/routes/app_pages.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
@@ -13,10 +10,11 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Obx를 사용하여 selectedIndex가 변경될 때마다 body가 자동으로 바뀜
+      appBar: AppBar(
+        title: Obx(() => Text(controller.pageTitles[controller.selectedIndex.value])),
+      ),
+      drawer: _buildDrawer(),
       body: Obx(() => controller.pages[controller.selectedIndex.value]),
-
-      // Obx를 StylishBottomBar에도 적용하여 UI가 항상 최신 상태를 반영하도록 합니다.
       bottomNavigationBar: Obx(
             () => StylishBottomBar(
           option: BubbleBarOptions(
@@ -25,7 +23,6 @@ class HomeView extends GetView<HomeController> {
             opacity: 0.3,
           ),
           items: [
-            // [수정] BottomBarItem 클래스는 stylish_bottom_bar.dart에 포함되어 있습니다.
             BottomBarItem(
               icon: const Icon(Icons.coffee_outlined),
               selectedIcon: const Icon(Icons.coffee),
@@ -37,8 +34,6 @@ class HomeView extends GetView<HomeController> {
               selectedIcon: const Icon(Icons.notifications),
               title: const Text('알림'),
               backgroundColor: Colors.orange,
-              badge: const Text('9'),
-              showBadge: true,
             ),
             BottomBarItem(
               icon: const Icon(Icons.person_outline),
@@ -53,6 +48,49 @@ class HomeView extends GetView<HomeController> {
             controller.changeIndex(index);
           },
         ),
+      ),
+    );
+  }
+
+  Widget _buildDrawer() {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          UserAccountsDrawerHeader(
+            accountName: Text(
+              controller.user.nickname ?? '손님',
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            accountEmail: null,
+            currentAccountPicture: CircleAvatar(
+              backgroundImage: controller.user.profileImageUrl != null
+                  ? NetworkImage(controller.user.profileImageUrl!)
+                  : null,
+              child: controller.user.profileImageUrl == null
+                  ? const Icon(Icons.person, size: 50)
+                  : null,
+            ),
+            decoration: const BoxDecoration(
+              color: Colors.brown,
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.edit_outlined),
+            title: const Text('정보 수정'),
+            onTap: () {
+              Get.back(); // Drawer를 닫습니다.
+              Get.toNamed(Routes.profileEdit);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout_outlined),
+            title: const Text('로그아웃'),
+            onTap: () {
+              controller.logout();
+            },
+          ),
+        ],
       ),
     );
   }

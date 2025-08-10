@@ -1,5 +1,6 @@
 // lib/app/routes/app_pages.dart
 
+import 'package:conte/app/views/pages/profile_edit_view.dart';
 import 'package:get/get.dart';
 import 'package:conte/app/views/login_view.dart';
 import 'package:conte/app/bindings/login_binding.dart';
@@ -20,6 +21,11 @@ class AppPages {
       name: Routes.home,
       page: () => const HomeView(),
       binding: HomeBinding(),
+    ),
+    GetPage(
+      name: Routes.profileEdit,
+      page: () => const ProfileEditView(),
+      // 간단한 페이지이므로 binding은 생략
     ),
   ];
 }
