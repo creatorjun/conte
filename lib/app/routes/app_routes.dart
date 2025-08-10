@@ -3,6 +3,6 @@
 part of 'app_pages.dart';
 
 abstract class Routes {
-  static const LOGIN = '/login';
-// static const HOME = '/home';
+  static const login = '/login';
+  static const home = '/home'; // [추가] 홈 라우트
 }
