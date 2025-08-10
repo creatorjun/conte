@@ -3,6 +3,12 @@ assets
 *.class
 *.log
 *.pyc
+ios
+android
+.dart_tool
+*.env
+.env
+
 *.swp
 .DS_Store
 .atom/

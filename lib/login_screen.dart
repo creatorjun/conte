@@ -60,27 +60,32 @@ class LoginScreen extends StatelessWidget {
         color: backgroundColor,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      // Stack을 사용하여 위젯들을 겹치게 배치합니다.
+      child: Stack(
+        alignment: Alignment.center,
         children: [
-          const SizedBox(width: 16), // 아이콘 왼쪽 여백
-          // SVG 아이콘
-          SvgPicture.asset(
-            assetName,
-            width: 24,
-            height: 24,
-          ),
-          const SizedBox(width: 24), // 아이콘과 텍스트 사이 간격
-          // 로그인 텍스트
-          Expanded(
-            child: Text(
-              text,
-              style: TextStyle(
-                color: textColor,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+          // 아이콘을 왼쪽에 배치합니다.
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              // 아이콘 왼쪽에 여백을 줍니다.
+              padding: const EdgeInsets.only(left: 22.0),
+              child: SvgPicture.asset(
+                assetName,
+                width: 24,
+                height: 24,
               ),
             ),
+          ),
+          // 텍스트는 Stack의 정중앙에 위치합니다.
+          Text(
+            text,
+            style: TextStyle(
+              color: textColor,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
           ),
         ],
       ),
