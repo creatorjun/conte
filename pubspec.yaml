@@ -1,0 +1,44 @@
+name: conte
+description: "Conte"
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  get: ^4.7.2
+  flutter_svg: ^2.2.0
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_native_splash: ^2.4.6
+  flutter_launcher_icons: ^0.14.4
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/app_icon.png"
+
+flutter_native_splash:
+  color: "#422819"
+  image: assets/images/splash.jpg
+
+  android_12:
+    image: assets/images/splash.jpg
+    color: "#422819"
+
+flutter:
+
+  uses-material-design: true
+
+assets:
+  - assets/images/
+  - assets/icons/
